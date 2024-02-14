@@ -1,9 +1,45 @@
-<!DOCTYPE html>
+let name = ""
+let urlName = ""
+let lenght = ""
+let minutes = ""
+let author = ""
+let imageAuthor = ""
+let linkToImage = ""
+let alt = ""
+let image = ""
+let category = ""
+let text = ""
+let date = ""
+
+function getData(){
+name = document.getElementById("name")
+urlName = document.getElementById("urlName")
+lenght = document.getElementById("lenght")
+minutes = document.getElementById("minutes")
+author = document.getElementById("author")
+imageAuthor = document.getElementById("imageAuthor")
+linkToImage = document.getElementById("linkToImage")
+alt = document.getElementById("linkToImage")
+image = document.getElementById("image")
+category = document.getElementById("category")
+text = document.getElementById("text")
+
+const today = new Date();
+const dd = String(today.getDate()).padStart(2, '0');
+const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+const yyyy = today.getFullYear();
+date = dd + '.' + mm + '. ' + yyyy;
+console.log("succes")
+}
+
+function buildPage(){
+    let page = `
+    <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Úspěch ve sportovní soutěži - Školní noviny ZŠ Poláčkova</title>
+    <title>`+ name.value  +` - Školní noviny ZŠ Poláčkova</title>
     <link rel="icon" type="image/x-icon" href="../logo-light.png" />
     <link rel="stylesheet" href="style.css" />
   </head>
@@ -97,3 +133,39 @@
     
   </body>
 </html>
+    `
+
+    return(page)
+}
+
+
+function imagePreview(){
+  const preview = document.getElementById("preview")
+  const image = document.getElementById("image")
+  const alt = document.getElementById("alt").value
+  const [file] = image.files
+  if (file) {
+    preview.src = URL.createObjectURL(file)
+    preview.alt = alt
+  }
+}
+
+function previewFile() {
+  const preview = document.querySelector("img");
+  const file = document.getElementById("image").files[0];
+  const reader = new FileReader();
+
+  reader.addEventListener(
+    "load",
+    () => {
+      // convert image file to base64 string
+      const uri = reader.result;
+      console.log(uri)
+    },
+    false,
+  );
+
+  if (file) {
+    reader.readAsDataURL(file);
+  }
+}
